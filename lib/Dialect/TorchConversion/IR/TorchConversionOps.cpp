@@ -15,6 +15,7 @@
 #include "mlir/IR/TypeUtilities.h"
 #include "torch-mlir/Dialect/Torch/IR/TorchTypes.h"
 #include "llvm/ADT/StringMap.h"
+#include <iostream>
 
 using namespace mlir;
 using namespace mlir::torch;
@@ -35,6 +36,35 @@ LogicalResult ToBuiltinTensorOp::inferReturnTypes(
     return failure();
   inferredReturnTypes.push_back(resultType);
   return success();
+}
+
+OpFoldResult FromI64Op::fold(llvm::ArrayRef<mlir::Attribute> operands) {
+  // auto def =
+  //     llvm::dyn_cast_or_null<mlir::arith::ConstantOp>(getOperand().getDefiningOp());
+  // auto attr = def.getValue().dyn_cast_or_null<mlir::IntegerAttr>();
+  operands[0].dump();
+  getOperand().dump();
+  auto attr = operands[0].dyn_cast_or_null<mlir::IntegerAttr>();
+  if (attr) {
+    std::cout << "GTY: attr" << std::endl;
+    return attr;
+  } else {
+    std::cout << "nullptr" << std::endl;
+  return nullptr;
+  }
+}
+
+OpFoldResult ToI64Op::fold(llvm::ArrayRef<mlir::Attribute> operands) {
+  operands[0].dump();
+  getOperand().dump();
+  auto attr = operands[0].dyn_cast_or_null<mlir::IntegerAttr>();
+  if (attr) {
+    std::cout << "GTY: attr" << std::endl;
+    return attr;
+  } else {
+    std::cout << "nullptr" << std::endl;
+  return nullptr;
+  }
 }
 
 #define GET_OP_CLASSES
