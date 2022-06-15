@@ -2103,6 +2103,8 @@ class DecomposeComplexOpsPass
     patterns.add<DecomposeConstantTensorAllocLikeOp<AtenZerosLikeOp, 0>>(
         context);
     target.addIllegalOp<AtenZerosLikeOp>();
+    patterns.add<DecomposeAtenRepeatOp>(context);
+    target.addIllegalOp<AtenRepeatOp>();
     patterns.add<DecomposeAtenExpandOp>(context);
     target.addIllegalOp<AtenExpandOp>();
     patterns.add<DecomposeAtenWhereScalarOp>(context);
