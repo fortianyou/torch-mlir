@@ -153,6 +153,7 @@ enum MemoryFormat {
 //===----------------------------------------------------------------------===//
 enum Layout { Strided, Sparse, SparseCsr, Mkldnn, NumOptions };
 
+ScalarType promoteTypes(ScalarType a, ScalarType b);
 } // namespace torch_upstream
 } // namespace torch
 } // namespace mlir
